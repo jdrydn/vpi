@@ -1,0 +1,31 @@
+{
+  "name": "vpi",
+  "version": "0.1.0",
+  "description": "Semver versioning for your favourite API(s)",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdrydn/vpi.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "pretest": "jshint . && jscs .",
+    "posttest": "istanbul check-coverage",
+    "start": "node src/server.js",
+    "test": "istanbul cover _mocha -- -r should -r tests/functions.js tests/**/*.test.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "semver": "^5.2.0"
+  },
+  "devDependencies": {
+    "istanbul": "^0.3.22",
+    "jscs": "^1.13.1",
+    "jshint": "^2.8.0",
+    "mocha": "^2.5.2",
+    "should": "^8.4.0",
+    "supertest": "^1.2.0"
+  }
+}
