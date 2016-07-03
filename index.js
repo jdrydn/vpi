@@ -7,35 +7,44 @@ var v = module.exports = function (condition, fn) {
   };
 };
 
+// Could have a v.accept function?
+// Which enforces a particular version number, or passes on an error.
+// To be used at the start of a new router, something like:
+// router.use(v.accept('>= 2.4.2', config));
+
 v.verify = function (config) {
   config = config || {};
   config.header = config.header || 'X-API-Version';
   config.latest = config.latest || 'INF';
 
   return function (req, res, next) {
-    if (!req.v_version && req.get(config.header)) req.v_version = semver.valid(req.get(config.header));
-    else if (!req.v_version) req.v_version = config.latest;
+    if (req.get(config.header)) {
+      req.v_version = semver.valid(req.get(config.header));
+      if (config.latest !== 'INF' && semver.gt(req.v_version, config.latest)) req.v_version = config.latest;
+    }
+    else req.v_version = config.latest;
 
-    if (semver.gt(req.v_version, config.latest)) req.v_version = config.latest;
     next();
   };
 };
 
 (function () {
+  /**
+   * This exposes the SERIES & PARALLEL methods of async for convienience, so you can easily stack middlewares.
+   */
   var async = null;
   try { async = require('async'); }
   catch (e) { /* Do nothing, because this is allowed */ }
 
-  [ 'each', 'eachSeries' ].forEach(function (method) {
+  [ 'series', 'parallel' ].forEach(function (method) {
     v[method] = function (fns) {
+      /* istanbul ignore if */
       if (!async || (typeof async[method] !== 'function')) {
         throw new Error('Missing async module - install async as a dependency to use v.' + method);
       }
 
-      var eachFn = async[method].bind(async);
-
       return function (req, res, next) {
-        eachFn(fns.map(function (fn) {
+        async[method].call(async, fns.map(function (fn) {
           return async.apply(fn, req, res);
         }), next);
       };

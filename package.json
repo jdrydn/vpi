@@ -9,10 +9,11 @@
   },
   "main": "index.js",
   "scripts": {
+    "coveralls": "cat coverage/lcov.info | coveralls",
     "pretest": "jshint . && jscs .",
     "posttest": "istanbul check-coverage",
     "start": "node src/server.js",
-    "test": "istanbul cover _mocha -- -r should -r tests/functions.js tests/**/*.test.js"
+    "test": "istanbul cover _mocha -- -r should tests/*.test.js"
   },
   "files": [
     "index.js"
@@ -21,11 +22,12 @@
     "semver": "^5.2.0"
   },
   "devDependencies": {
+    "async": "^1.5.2",
+    "coveralls": "^2.11.4",
     "istanbul": "^0.3.22",
     "jscs": "^1.13.1",
     "jshint": "^2.8.0",
     "mocha": "^2.5.2",
-    "should": "^8.4.0",
     "supertest": "^1.2.0"
   }
 }
