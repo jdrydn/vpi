@@ -27,27 +27,3 @@ v.verify = function (config) {
     next();
   };
 };
-
-(function () {
-  /**
-   * This exposes the SERIES & PARALLEL methods of async for convienience, so you can easily stack middlewares.
-   */
-  var async = null;
-  try { async = require('async'); }
-  catch (e) { /* Do nothing, because this is allowed */ }
-
-  [ 'series', 'parallel' ].forEach(function (method) {
-    v[method] = function (fns) {
-      /* istanbul ignore if */
-      if (!async || (typeof async[method] !== 'function')) {
-        throw new Error('Missing async module - install async as a dependency to use v.' + method);
-      }
-
-      return function (req, res, next) {
-        async[method].call(async, fns.map(function (fn) {
-          return async.apply(fn, req, res);
-        }), next);
-      };
-    };
-  });
-})();
