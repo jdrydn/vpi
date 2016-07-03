@@ -18,6 +18,14 @@
   "files": [
     "index.js"
   ],
+  "author": "James D <james@jdrydn.com> (https://jdrydn.com)",
+  "license": "MIT",
+  "keywords": [
+    "api",
+    "routing",
+    "semver",
+    "versioning"
+  ],
   "dependencies": {
     "semver": "^5.2.0"
   },
