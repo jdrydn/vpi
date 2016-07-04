@@ -25,6 +25,9 @@
     "semver",
     "versioning"
   ],
+  "bugs": {
+    "url": "https://github.com/jdrydn/vpi/issues"
+  },
   "dependencies": {
     "semver": "^5.2.0"
   },
