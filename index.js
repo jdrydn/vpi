@@ -9,10 +9,27 @@ var v = module.exports = function (condition, fn) {
   };
 };
 
-// Could have a v.accept function?
-// Which enforces a particular version number, or passes on an error.
-// To be used at the start of a new router, something like:
-// router.use(v.accept('>= 2.4.2', config));
+v.accept = function (condition, err_props) {
+  err_props = err_props || {};
+
+  var makeError = function (err) {
+    if (err_props.code) err.code = err_props.code;
+    if (err_props.name) err.name = err_props.name;
+    return err;
+  };
+
+  return function (req, res, next) {
+    if (!req.version) {
+      return next(makeError(new Error('Missing version')));
+    }
+
+    if (!semver.satisfies(req.v_version === 'INF' ? INF : req.v_version, condition)) {
+      return next(makeError(new Error('Version "' + req.v_version + '" does not satisfy "' + condition + '"')));
+    }
+
+    next();
+  };
+};
 
 v.satisfy = function (req, condition) {
   return !!(req.v_version && semver.satisfies(req.v_version === 'INF' ? INF : req.v_version, condition));
