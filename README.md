@@ -12,8 +12,6 @@ you have a simpler way to compare versions.
 
 This would not be possible without the [Semver package from NPM][semver-npm], so a big thank you to them :thumbsup:
 
-## Usage
-
 ```js
 var express = require('express');
 var v = require('vpi');
