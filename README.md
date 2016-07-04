@@ -1,5 +1,9 @@
 # Versioned Programmable Interface
 
+[![npm version](https://badge.fury.io/js/vpi.svg)](https://badge.fury.io/js/vpi)
+![Circle CI](https://circleci.com/gh/jdrydn/vpi/tree/master.svg?style=shield)
+![Coverage Status](https://coveralls.io/repos/jdrydn/vpi/badge.svg?branch=master&service=github)
+
 After reading [this excellent article from Netflix about scaling & versioning][netflix-medium-post], and also from
 experience, it's safe to say that writing a versioned API is a pain. Supporting older "legacy" clients is tedious and
 often leads to unexpected behaviour. You end up with split URL paths like `/v1` & `/v2`, and having to update clients
