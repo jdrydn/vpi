@@ -13,7 +13,7 @@
     "pretest": "jshint . && jscs .",
     "posttest": "istanbul check-coverage",
     "start": "node src/server.js",
-    "test": "istanbul cover _mocha -- -r should tests/*.test.js"
+    "test": "istanbul cover _mocha -- tests/*.test.js"
   },
   "files": [
     "index.js"

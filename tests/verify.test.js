@@ -72,5 +72,13 @@ describe('VPI', function () {
       });
     });
 
+    it('should throw an error if the latest semver option is not valid', function () {
+      assert.throws(function () {
+        v.verify({
+          latest: 'one-point-five-point-six'
+        });
+      }, /one-point-five-point-six/i);
+    });
+
   });
 });
