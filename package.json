@@ -2,7 +2,6 @@
   "name": "vpi",
   "version": "0.1.0",
   "description": "Semver versioning for your favourite API(s)",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/jdrydn/vpi.git"
