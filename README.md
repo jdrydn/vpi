@@ -12,6 +12,8 @@ you have a simpler way to compare versions.
 
 This would not be possible without the [Semver package from NPM][semver-npm], so a big thank you to them :thumbsup:
 
+## Usage
+
 ```js
 var express = require('express');
 var v = require('vpi');
@@ -59,7 +61,7 @@ function (including Express routes, etc), just like similar routing packages lik
 
 ## Satisfy
 
-The `satisfy` method is [Semver's own satisfy function][semver-satisfy] exposed so you can easily do synchronous version
+The `satisfy` method is [Semver's own satisfy function][semver-usage] exposed so you can easily do synchronous version
 checks in your own logic, for example to add specific properties to later versions, like so:
 
 ```js
@@ -98,6 +100,6 @@ app.use(v.verify({
 
 [netflix-medium-post]: https://medium.com/@nodejs/netflixandchill-how-netflix-scales-with-node-js-and-containers-cf63c0b92e57#.svecljpvr
 [semver-npm]: https://www.npmjs.com/package/semver
-[semver-satisfy]: https://www.npmjs.com/package/semver#ranges
 [semver-ranges]: https://www.npmjs.com/package/semver#ranges
+[semver-usage]: https://www.npmjs.com/package/semver#usage
 [vhost-npm]: https://www.npmjs.com/package/vhost
