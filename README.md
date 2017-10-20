@@ -47,9 +47,7 @@ You can also use `v` with middleware functions too, like so:
 ```js
 app.use(v('>= 2.0.0', middleware.v2version));
 app.use(v('>= 1.0.0 && < 2.0.0', middleware.v1version));
-app.use(function (req, res) {
-  res.render('some-page');
-});
+app.use((req, res) => res.render('some-page'));
 ```
 
 ## Usage
@@ -67,7 +65,7 @@ The `satisfy` method is [Semver's own satisfy function][semver-usage] exposed so
 checks in your own logic, for example to add specific properties to later versions, like so:
 
 ```js
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.data = {
     page: 1,
     count: 12
@@ -99,6 +97,9 @@ app.use(v.verify({
   latest: '2.4.2'
 }));
 ```
+
+This will also add the `X-Client-Version` header to the `req` and `res`, so you can include the current version in your
+application (as `req.get('X-Client-Version')`).
 
 [netflix-medium-post]: https://medium.com/@nodejs/netflixandchill-how-netflix-scales-with-node-js-and-containers-cf63c0b92e57#.svecljpvr
 [semver-npm]: https://www.npmjs.com/package/semver

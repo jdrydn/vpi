@@ -4,7 +4,7 @@ var INF = '9999999.9999.9999';
 
 var v = module.exports = function (condition, fn) {
   return function (req, res, next) {
-    if (req.v_version && (req.v_version === 'INF' || semver.satisfies(req.v_version, condition))) fn(req, res, next);
+    if (req._v_version && (req._v_version === 'INF' || semver.satisfies(req._v_version, condition))) fn(req, res, next);
     else next();
   };
 };
@@ -15,7 +15,7 @@ var v = module.exports = function (condition, fn) {
 // router.use(v.accept('>= 2.4.2', config));
 
 v.satisfy = function (req, condition) {
-  return !!(req.v_version && semver.satisfies(req.v_version === 'INF' ? INF : req.v_version, condition));
+  return !!(req._v_version && semver.satisfies(req._v_version === 'INF' ? INF : req._v_version, condition));
 };
 
 v.verify = function (config) {
@@ -30,10 +30,13 @@ v.verify = function (config) {
 
   return function (req, res, next) {
     if (req.get(config.header)) {
-      req.v_version = semver.valid(req.get(config.header));
-      if (config.latest !== 'INF' && semver.gt(req.v_version, config.latest)) req.v_version = config.latest;
+      req._v_version = semver.valid(req.get(config.header));
+      if (config.latest !== 'INF' && semver.gt(req._v_version, config.latest)) req._v_version = config.latest;
     }
-    else req.v_version = config.default;
+    else req._v_version = config.default;
+
+    req.headers[config.header.toLowerCase()] = req._v_version;
+    res.set(config.header, req._v_version);
 
     next();
   };

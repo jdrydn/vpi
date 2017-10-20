@@ -16,7 +16,7 @@ describe('VPI', function () {
         done();
       });
 
-      fn({ v_version: 'INF' }, {}, function () {
+      fn({ _v_version: 'INF' }, {}, function () {
         throw new Error('Function should not have run');
       });
     });
@@ -26,7 +26,7 @@ describe('VPI', function () {
         throw new Error('Function should not have run');
       });
 
-      fn({ v_version: '1.2.3' }, {}, done);
+      fn({ _v_version: '1.2.3' }, {}, done);
     });
 
     it('should continue cleanly if the version satisfies the condition', function (done) {
@@ -34,7 +34,7 @@ describe('VPI', function () {
         done();
       });
 
-      fn({ v_version: '2.6.18' }, {}, function () {
+      fn({ _v_version: '2.6.18' }, {}, function () {
         throw new Error('Function should not have run');
       });
     });
